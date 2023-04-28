@@ -1,4 +1,4 @@
-package com.roynaldi19.dc4bpai06_02locationtracker
+package com.roynaldi19.dc4_06locationtracker
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

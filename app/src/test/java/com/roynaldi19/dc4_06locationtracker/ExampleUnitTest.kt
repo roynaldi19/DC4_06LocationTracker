@@ -1,4 +1,4 @@
-package com.roynaldi19.dc4bpai06_02locationtracker
+package com.roynaldi19.dc4_06locationtracker
 
 import org.junit.Test
 
