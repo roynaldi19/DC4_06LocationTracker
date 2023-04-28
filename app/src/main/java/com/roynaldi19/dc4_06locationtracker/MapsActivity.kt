@@ -25,6 +25,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.gms.maps.model.PolylineOptions
 import com.roynaldi19.dc4_06locationtracker.databinding.ActivityMapsBinding
@@ -32,7 +33,6 @@ import java.util.concurrent.TimeUnit
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -40,6 +40,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var locationCallback: LocationCallback
     private var isTracking = false
     private var allLatLng = ArrayList<LatLng>()
+    private var boundsBuilder = LatLngBounds.Builder()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     }
 
-
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
@@ -65,6 +65,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         binding.btnStart.setOnClickListener {
             if (!isTracking) {
+                clearMaps()
                 updateTrackingStatus(true)
                 startLocationUpdates()
             } else {
@@ -148,7 +149,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
                     Toast.LENGTH_SHORT
                 ).show()
         }
-
     }
 
     private fun createLocationRequest() {
@@ -228,6 +228,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             binding.btnStart.text = getString(R.string.start_running)
         }
+    }
+
+    private fun clearMaps(){
+        map.clear()
+        allLatLng.clear()
+        boundsBuilder = LatLngBounds.Builder()
     }
 
     companion object {
